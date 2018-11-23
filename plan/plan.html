@@ -9,6 +9,18 @@
     </head>
 
     <body>
-        <h2 id="pageTitle">Plan an Event</h2><br>
+        <h2 id="pageTitle">Plan a Meetup</h2><br>
+        <div id="form">
+            Meet Name:<br> <input id="meetName" type="text" required/><br><br>
+            Meet Description:<br> <textarea id="meetDescription" rows="5" cols="75%"></textarea><br><br>
+            Start Date & Time:<br>   <input id="meetStart" type="datetime-local" name="meetStart"><br><br>
+            End Date & Time:<br>  <input id="meetEnd" type="datetime-local" name="meetEnd"><br><br>
+
+            <input id="back" type="submit" value="Back to Main Menu"/>
+            <input id="submit" type="submit" value="Create Meetup"/>
+            
+        </div>
+        <div id="error">
+        </div>
     </body>
 </html>

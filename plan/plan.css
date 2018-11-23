@@ -1,0 +1,16 @@
+#pageTitle {
+    text-align: center;
+}
+
+#form {
+    text-align: center;
+}
+
+#error {
+    text-align: center;
+}
+
+#errorTitle {
+    font-size: 64px;
+    color: red;
+}
