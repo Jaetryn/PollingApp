@@ -8,13 +8,14 @@
         <script src="plan.js"></script>
     </head>
 
-    <body>
+    <body id="content">
         <h2 id="pageTitle">Plan a Meetup</h2><br>
         <div id="form">
             Meet Name:<br> <input id="meetName" type="text" required/><br><br>
             Meet Description:<br> <textarea id="meetDescription" rows="5" cols="75%"></textarea><br><br>
-            Start Date & Time:<br>   <input id="meetStart" type="datetime-local" name="meetStart"><br><br>
-            End Date & Time:<br>  <input id="meetEnd" type="datetime-local" name="meetEnd"><br><br>
+            Meet Day<br>   <input id="meetDay" type="date" name="meetDay"><br><br>
+            Start Time:<br>  <input id="meetStart" type="time" name="startTime"><br><br>
+            End Time:<br>  <input id="meetEnd" type="time" name="endTime"><br><br>
 
             <input id="back" type="submit" value="Back to Main Menu"/>
             <input id="submit" type="submit" value="Create Meetup"/>
