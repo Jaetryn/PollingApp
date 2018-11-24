@@ -7,17 +7,22 @@ Username: pollinguser
 Password: polling
 
 We will use two tables:
+
 One to keep track of a list of meet ups and another to keep track of a list of attendees who have submitted input.
 
-Table 1 - To keep track of the meetups
-Table name: meetup
-Fields: name (varchar 255), description (varchar 255), date (varchar 255), start (varchar 255), end (varchar 255), id (int) [primary key]
+##Table 1 - To keep track of the meetups
+
+    Table name: meetup
+
+    Fields: name (varchar 255), description (varchar 255), date (varchar 255), start (varchar 255), end (varchar 255), id (int) [primary key]
 
 
 
-Table 2 - To keep track of the attendees
-Table name: attendee
-Fields: name (varchar 255), meetID (int), ... im still figuring out what else to include.. edit whenever.
+##Table 2 - To keep track of the attendees
+
+    Table name: attendee
+
+    Fields: name (varchar 255), meetID (int), ... im still figuring out what else to include.. edit whenever.
 
 # Questions
 How will we split up the times for users to submit availability data? 
