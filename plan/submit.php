@@ -1,9 +1,9 @@
 
 <?php
 	require_once "dbLogin.php";
-	
-	$name = $_POST["name"];
-	$description = $_POST["description"];
+
+	$name = htmlentities($_POST["name"], ENT_QUOTES | ENT_HTML401);
+	$description = htmlentities($_POST["description"], ENT_QUOTES | ENT_HTML401);
 	$day = $_POST["day"];
 	$start = $_POST["start"];
 	$end = $_POST["end"];
@@ -15,18 +15,14 @@
 	}
 	
 	/* Query */
-	$query = "INSERT INTO meetup (name, description, date, start, end, id) VALUES ('$name', '$description', '$day', '$start', '$end', '$id')";
+	$query = "INSERT INTO meetup (name, description, date, start, end, id) VALUES ('$name', '$description', '$day', '$start', '$end', $id)";
 			
 	/* Executing query */	    	
 	$result = $db_connection->query($query);
 	if (!$result) {
 		die("Insertion failed: " . $db_connection->error);
-	} else {
-		$dbpassword = (($result)->fetch_array(MYSQLI_ASSOC))['password'];
 	}
 
-	/* Freeing memory */
-	$result->close();
 	
 	/* Closing connection */
 	$db_connection->close();

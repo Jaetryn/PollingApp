@@ -13,7 +13,9 @@
 		/* Executing query */	    	
 		$result = $db_connection->query($query);
 		if (!$result) {
-			die("Selection failed: " . $db_connection->error);
+            echo "FAIL";
+            die("Selection failed: " . $db_connection->error);
+            
 		} else {
             $column = array();
 

@@ -21,7 +21,8 @@ function confirmMeet(){
     /* PHP CALL */
     $.post("submit.php", { name: meetName, description: meetDescription, day: meetDay, start: meetStart, end: meetEnd, id: meetID}, 
         function(data){
-            document.getElementById("success").innerHTML = "Success! Meet up created. Share the ID: " +meetID +" with people so they can let you know when they're available!";
+            localStorage.setItem("success", "Success! Meet up created. Share the ID: " +meetID +" with people so they can let you know when they're available!");
+            window.location.href = "success.html";
         });
 }
 

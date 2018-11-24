@@ -1,16 +1,19 @@
 # PollingApp
 
 # MySQL Database
-Host: localhosts
-Database Name: polling
-Username: pollinguser
-Password: polling
+**Host:** localhosts
+
+**Database Name:** polling
+
+**Username:** pollinguser
+
+**Password:** polling
 
 We will use two tables:
 
 One to keep track of a list of meet ups and another to keep track of a list of attendees who have submitted input.
 
-##Table 1 - To keep track of the meetups
+## Table 1 - To keep track of the meetups
 
     Table name: meetup
 
@@ -18,7 +21,7 @@ One to keep track of a list of meet ups and another to keep track of a list of a
 
 
 
-##Table 2 - To keep track of the attendees
+## Table 2 - To keep track of the attendees
 
     Table name: attendee
 
