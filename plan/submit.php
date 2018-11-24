@@ -23,6 +23,7 @@
 		die("Insertion failed: " . $db_connection->error);
 	}
 
+	$result->close();
 	
 	/* Closing connection */
 	$db_connection->close();
