@@ -11,19 +11,33 @@ function goBack(){
 }
 
 function confirmMeet(){
-    var mysql = require('mysql');
+    let meetName = localStorage.getItem("meetName");
+    let meetDescription = localStorage.getItem("meetDescription");
+    let meetDay = convertDate(localStorage.getItem("meetDay"));
+    let meetStart = convertTime(localStorage.getItem("meetStart"));
+    let meetEnd = convertTime(localStorage.getItem("meetEnd"));
+    let meetID = generateID();
 
-    var con = mysql.createConnection({
-      host: "localhost",
-      user: "user",
-      password: "polling",
-      database: "polling"
+    /* PHP CALL */
+    $.post("submit.php", { name: meetName, description: meetDescription, day: meetDay, start: meetStart, end: meetEnd, id: meetID}, 
+        function(data){
+            document.getElementById("success").innerHTML = "Success! Meet up created. Share the ID: " +meetID +" with people so they can let you know when they're available!";
+        });
+}
+
+function generateID(){
+    id = 100;
+    $.post("generateid.php", {}, function(data){
+        let idList = data.split(",");
+        uniqueId = Math.floor((Math.random() * 100000));
+        while (idList.includes(id)){
+            uniqueId = Math.floor((Math.random() * 100000));
+        }
+        localStorage.setItem("uniqueID", uniqueId);
     });
-    
-    con.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
-    });
+
+
+    return parseInt(localStorage.getItem("uniqueID"));
 }
 
 function generateConfirmation(){
