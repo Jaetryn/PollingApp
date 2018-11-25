@@ -10,7 +10,7 @@
 		}
 		
 		/* Query */
-		$query = "SELECT * FROM attendees WHERE id = " . $meetID;
+		$query = "SELECT name FROM attendees WHERE id = " . $meetID;
 				
 		/* Executing query */	    	
 		$result = $db_connection->query($query);

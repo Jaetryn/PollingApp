@@ -1,0 +1,32 @@
+#content{
+    text-align: center;
+}
+
+#pageTitle{
+    text-align: center;
+}
+
+#errorTitle{
+    color: red;
+    text-align: center;
+}
+
+#success{
+    text-align: center;
+    font-size: 24px;
+    color: green;
+}
+
+#errorMessage{
+    text-align: center;
+}
+
+#prompt{
+    text-align: center;
+}
+
+#availability{
+    text-align: center;
+    align-content: center;
+    margin: 0 auto;
+}
