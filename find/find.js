@@ -19,11 +19,14 @@ function fetchData(){
                 alert("success");
                 let meetDetails = data.split(",");
 
-                let meetName = meetDetails[0];
-                let meetDescription = meetDetails[1];
-                let meetStart = meetDetails[2];
-                let meetEnd = meetDetails[3];
-                let meetID = meetDetails[4];
+                localStorage.setItem("meetName", meetDetails[0]);
+                localStorage.setItem("meetDescription", meetDetails[1]);
+                localStorage.setItem("meetDate", meetDetails[2]);
+                localStorage.setItem("meetStart", meetDetails[3]);
+                localStorage.setItem("meetEnd", meetDetails[4]);
+                localStorage.setItem("meetID", meetDetails[5]);
+
+                window.location.href = "found.html";
             }else{
                 errorMessage("Meetup with that ID does not exist. Try another one!");
             }
