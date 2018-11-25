@@ -3,20 +3,20 @@ window.onload = main;
 function main(){
     generateConfirmation();
     document.getElementById("back").addEventListener("click", goBack);
-    document.getElementById("confirm").addEventListener("click", confirmMeet);
+    document.getElementById("confirm").addEventListener("click", generateID);
 }
 
 function goBack(){
     window.location.href = "plan.html";
 }
 
-function confirmMeet(){
+function confirmMeet(id){
     let meetName = localStorage.getItem("meetName");
     let meetDescription = localStorage.getItem("meetDescription");
     let meetDay = convertDate(localStorage.getItem("meetDay"));
     let meetStart = convertTime(localStorage.getItem("meetStart"));
     let meetEnd = convertTime(localStorage.getItem("meetEnd"));
-    let meetID = generateID();
+    let meetID = id;
 
     /* PHP CALL */
     $.post("submit.php", { name: meetName, description: meetDescription, day: meetDay, start: meetStart, end: meetEnd, id: meetID}, 
@@ -34,7 +34,7 @@ function generateID(){
         while (idList.includes(id)){
             uniqueId = Math.floor((Math.random() * 100000));
         }
-        localStorage.setItem("uniqueID", uniqueId);
+        confirmMeet(uniqueId);
     });
 
 

@@ -1,6 +1,7 @@
 window.onload = main;
 
 function main(){
+    localStorage.clear();
     document.getElementById("planEvent").addEventListener("click", switchPagePlan);
     document.getElementById("findEvent").addEventListener("click", switchPageFind);
 }

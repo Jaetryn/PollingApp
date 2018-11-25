@@ -2,6 +2,7 @@ window.onload = main;
 
 function main(){
     document.getElementById("submit").addEventListener("click", fetchData);
+    document.getElementById("back").addEventListener("click", goBack);
 }
 
 function fetchData(){
@@ -39,4 +40,8 @@ function errorMessage(message){
     let title = "<h2>Error</h2><br>";
     document.getElementById("errorTitle").innerHTML = title;
     document.getElementById("errorMessage").innerHTML = message;
+}
+
+function goBack(){
+    window.location.href = "../main.html";
 }
