@@ -30,16 +30,19 @@ One to keep track of a list of meet ups and another to keep track of a list of a
 
 ## Database & Table Details
 
-Intervals
+Intervals:
+
     For events that are <= 2 hours in length, the intervals will be 15 minutes.
     For events that are > 2 hours in length, the intervals will be 30 minutes.
 
-Clicking on the table
+Clicking on the table:
+
     Clicking on the table will trigger an event that'll change the cell to green to flag visually that it's selected.
 
-On hitting submit after the the availability times on the table have been clicked, we will make a SEPERATE query to insert data in the database for every single cell that is green (selected) in the table.
+    On hitting submit after the the availability times on the table have been clicked, we will make a SEPERATE query to insert data in the database for every single cell that is green (selected) in the table.
 
-Example 
+Example:
+
     Bill can attend an event and hits table cells for 4:00 to 4:30, 4:30 to 5:00, 5:00 to 5:30.
 
     Instead of one insert query into the database going from (start) 4:00 to (end) 5:30 we make those 3 seperate inserts
