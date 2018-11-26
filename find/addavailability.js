@@ -1,7 +1,39 @@
 window.onload = main;
 
+
 function main(){
     createEventTable();
+    addTableEventListeners();
+    document.getElementById("submit").addEventListener("click", submitData);
+    document.getElementById("back").addEventListener("click", goBack);
+}
+
+function submitData(){
+    let rows = localStorage.getItem("rows");
+    let attendeeName = document.getElementById("name").value;
+    let meetID = localStorage.getItem("meetID");
+
+    let availableTimes = [];
+
+    /* Adding colored times into an array so we can later iterate through it and make MYSQL queries. */
+    for (index = 0; index <= rows; index++){
+        let rowName = "row" + index;
+        if (document.getElementById(rowName).getAttribute("bgcolor") == "green"){
+            availableTimes.push(localStorage.getItem("row" +index +"String"));
+        }
+    }
+
+    for (index = 0; index < availableTimes.length; index++){
+        $.post("addavailabilitydata.php", { name: attendeeName, availability: availableTimes[index], id: meetID }, 
+        function(data){
+            if(data != "fail"){
+                alert("added");
+            }else{
+                errorMessage("fail");
+            }
+        });
+    }
+
 }
 
 function createEventTable(){
@@ -34,19 +66,25 @@ function createEventTable(){
 
     hourMil = parseInt(meetStart.slice(0, 2));
     minMil = parseInt(meetStart.slice(2, 4));
+    hourEndMil = parseInt(meetEnd.slice(0, 2));
+    minEndMil = parseInt(meetEnd.slice(2, 4));
 
     for (index = 0; index <= rows; index++){
+        var element = document.createElement("tr");
+        element.id = "row" + index;
+        document.body.appendChild(element);
+
         table += "<tr id='row" +index +"'><td>";
-        if (minCount < 10){
-            minCountStr = "0" + minCount;
-        }
+        minCountStr = minCount < 10 ? "0" + minCount : minCount;
+
         if (hourMil >= 12){
             timePeriod = " PM";
         }else{
             timePeriod = " AM";
         }
 
-        if (index + 1 != rows){
+        /* Finding the right side of "TO" */
+        if (index + 1 <= rows){
             let hourMilAhead = hourMil;
             let minMilAhead = minMil + interval;
 
@@ -58,10 +96,15 @@ function createEventTable(){
             timePeriodAhead = hourMilAhead >= 12 ? " PM" : " AM";
             hourCountAhead = hourMilAhead > 12 ? hourMilAhead - 12 : hourMilAhead;
             minCountStrAhead = minMilAhead < 10 ? "0" + minMilAhead : minMilAhead;
+        }else{
+            timePeriod = hourEndMil >= 12 ? " PM" : " AM";
+            hourCountAhead = hourEndMil > 12 ? hourEndMil - 12 : hourEndMil;
+            minCountStrAhead =  minEndMil < 10 ? "0" + minEndMil : minEndMil;
         }
 
-
-        table += hourCount + ":" +minCountStr +timePeriod + " to " + hourCountAhead + ":" +minCountStrAhead +timePeriodAhead;
+        let rowString = hourCount + ":" +minCountStr +timePeriod + " to " + hourCountAhead + ":" +minCountStrAhead +timePeriodAhead;
+        localStorage.setItem("row" +index +"String", rowString);
+        table += rowString;
         table += "</td></tr>";    
 
         minCount += interval;
@@ -75,38 +118,44 @@ function createEventTable(){
 
         minMil += interval;
         if (minMil >= 60){
-            minMil - 60;
+            minMil -= 60;
             hourMil++;
             if(hourMil > 23){
                 hourMil = 0;
             }
         }
 
-    }
-
-    if (totalDiff - (interval * rows) != 0){
-        hourMilEnd = parseInt(meetEnd.slice(0, 2));
-        minMilEnd = parseInt(meetEnd.slice(2, 4));
-
-        minMilEnd = minMilEnd - interval;
-
-        if (minMilEnd < 0){
-            minMilEnd = minMilEnd + 60;
-            hourMilEnd--;
-        }
-
-        timePeriod = hourMilEnd >= 12? " PM" : " AM";
-
-        hourConv = hourMilEnd > 12? hourMilEnd - 12 : hourMilEnd;
-        minConv = minMilEnd;
-
-        table += "<tr id='" + (rows + 1) + "'><td>" + hourConv + ":" +minConv +timePeriod + "</td></tr>";
-
-
+        localStorage.setItem("rows", rows);
+        localStorage.setItem("interval", interval);
     }
 
     table += "</table>";
     document.getElementById("availTable").innerHTML = table;
+}
+
+function addTableEventListeners(){
+    let rows = localStorage.getItem("rows");
+    let interval = localStorage.getItem("interval");
+
+    for(index = 0; index <= rows; index++){
+        id = "row" +index;
+        var input = document.getElementById(id);
+
+        input.onclick = (function(id){
+            return function(){
+                setGreen(id);
+            }
+         })(id);         
+    }
+}
+
+function setGreen(id){
+    let element = document.getElementById(id);
+    if(element.getAttribute("bgcolor") == "green"){
+        element.removeAttribute("bgcolor");
+    }else{
+        element.setAttribute("bgcolor", "green");
+    }
 }
 
 function computeRows(totalDiff, interval){
@@ -161,4 +210,9 @@ function convertTime(time){
     }
 
     return hour + minute;
+}
+
+
+function goBack(){
+    window.location.href = "../main.html";
 }
