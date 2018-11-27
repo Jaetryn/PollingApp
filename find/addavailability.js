@@ -9,31 +9,47 @@ function main(){
 }
 
 function submitData(){
-    let rows = localStorage.getItem("rows");
-    let attendeeName = document.getElementById("name").value;
-    let meetID = localStorage.getItem("meetID");
-
-    let availableTimes = [];
-
-    /* Adding colored times into an array so we can later iterate through it and make MYSQL queries. */
-    for (index = 0; index <= rows; index++){
-        let rowName = "row" + index;
-        if (document.getElementById(rowName).getAttribute("bgcolor") == "green"){
-            availableTimes.push(localStorage.getItem("row" +index +"String"));
-        }
-    }
-
-    for (index = 0; index < availableTimes.length; index++){
-        $.post("addavailabilitydata.php", { name: attendeeName, availability: availableTimes[index], id: meetID }, 
-        function(data){
-            if(data != "fail"){
-                alert("added");
-            }else{
-                errorMessage("fail");
+    let test = nameCheck();
+    if (test){
+        let rows = localStorage.getItem("rows");
+        let attendeeName = document.getElementById("name").value;
+        let meetID = localStorage.getItem("meetID");
+    
+        let availableTimes = [];
+    
+        /* Adding colored times into an array so we can later iterate through it and make MYSQL queries. */
+        for (index = 0; index <= rows; index++){
+            let rowName = "row" + index;
+            if (document.getElementById(rowName).getAttribute("bgcolor") == "green"){
+                availableTimes.push(localStorage.getItem("row" +index +"String"));
             }
-        });
+        }
+    
+        for (index = 0; index < availableTimes.length; index++){
+            $.post("addavailabilitydata.php", { name: attendeeName, availability: availableTimes[index], id: meetID }, 
+            function(data){
+                if(data != "fail"){
+                    /*alert("added");*/
+                }else{
+                    errorMessage("fail");
+                }
+            });
+        }
+    
+        window.location.href = "success.html";
+    
+    }else{
+        document.getElementById("errorTitle").innerHTML = "<br><br>Error"
+        document.getElementById("errorMessage").innerHTML = "Please enter a valid name."
     }
+}
 
+function nameCheck(){
+    let name = document.getElementById("name").value;
+    if ( name == undefined || name == ""){
+        return false;
+    }
+    return true;
 }
 
 function createEventTable(){
@@ -51,7 +67,7 @@ function createEventTable(){
 
     let totalDiff = (hourDiff * 60) + minDiff;
     let rows = computeRows(totalDiff, interval);
-
+/*
     alert("Start: " +meetStart);
     alert("End: " +meetEnd);
     alert("Hour Diff: " +hourDiff);
@@ -59,13 +75,15 @@ function createEventTable(){
     alert("Total Diff: " +totalDiff);
     alert("Interval: " +interval);
     alert("Rows: " + rows);
+    */
 
-    let minCount = parseInt(localStorage.getItem("meetStart").slice(":")[0].slice(" ")[0]);
+    let minCount = parseInt(localStorage.getItem("meetStart").split(":")[1].split(" ")[0]);
     let hourCount = parseInt(localStorage.getItem("meetStart").slice(":")[0]);
     let table = "<br><table id='availability' border='1'>";
 
     hourMil = parseInt(meetStart.slice(0, 2));
     minMil = parseInt(meetStart.slice(2, 4));
+
     hourEndMil = parseInt(meetEnd.slice(0, 2));
     minEndMil = parseInt(meetEnd.slice(2, 4));
 

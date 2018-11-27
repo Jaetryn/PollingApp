@@ -10,7 +10,7 @@
 		}
 		
 		/* Query */
-		$query = "SELECT name FROM attendees WHERE id = " . $meetID;
+		$query = "SELECT name, availability FROM attendees WHERE id = " . $meetID;
 				
 		/* Executing query */	    	
 		$result = $db_connection->query($query);
@@ -18,13 +18,14 @@
             die("Selection failed: " . $db_connection->error);
 		} else {
 
-            $output = ($result)->fetch_array(MYSQLI_ASSOC);
-            
-            if ($output == null){
-                echo "fail";
-            }else{
-                echo implode(",", $output);
-            }
+            while ($output = ($result)->fetch_array(MYSQLI_ASSOC)){
+				if ($output == null){
+					echo "fail";
+				}else{
+					echo implode(",", $output);
+					echo ",";
+				}				
+			};
         }
 		/* Freeing memory */
 		$result->close();

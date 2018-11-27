@@ -16,7 +16,6 @@ function fetchData(){
         $.post("fetchdata.php", { meet: meetID }, 
         function(data){
             if(data != "fail"){
-                alert("success");
                 let meetDetails = data.split(",");
 
                 localStorage.setItem("meetName", meetDetails[0]);
@@ -25,6 +24,8 @@ function fetchData(){
                 localStorage.setItem("meetStart", meetDetails[3]);
                 localStorage.setItem("meetEnd", meetDetails[4]);
                 localStorage.setItem("meetID", meetDetails[5]);
+
+                
 
                 window.location.href = "found.html";
             }else{

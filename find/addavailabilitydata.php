@@ -2,7 +2,7 @@
 	require_once "dbLogin.php"; 
 
     /* Connecting to the database */		
-        $meetID = $_POST["meet"];
+        $meetID = $_POST["id"];
         $availability = $_POST["availability"];
         $name = $_POST["name"];
 
